@@ -19,7 +19,7 @@ import com.lks.esemka.esport.network.ApiClient
 
 class MainScreenActivity : AppCompatActivity() {
 
-    private lateinit var usernameTxt: TextView
+    private lateinit var fullNameTxt: TextView
     private lateinit var showTeamsBtn: LinearLayout
     private lateinit var showPlayersBtn: LinearLayout
     private lateinit var showTeamsBtnTxt: TextView
@@ -34,8 +34,8 @@ class MainScreenActivity : AppCompatActivity() {
         onClickHandlers()
 
         // display username
-        val username = intent.getStringExtra(SigninActivity.USN_KEY) ?: "Guest"
-        usernameTxt.text = "Halo $username 👋"
+        val fullName = intent.getStringExtra(SigninActivity.USN_KEY) ?: "Guest"
+        fullNameTxt.text = "Halo, $fullName 👋"
 
         // set default recycler view for teams
 //        val teams = mutableListOf<Team>()
@@ -43,9 +43,9 @@ class MainScreenActivity : AppCompatActivity() {
 //        recyclerView.layoutManager = GridLayoutManager(this, 2)
 //        recyclerView.adapter = teamAdapter
 //
-//        ApiClient().getTeams { fetchedTeams ->
+//        ApiClient().getTeams {
 //            teams.clear()
-//            teams.addAll(fetchedTeams)
+//            teams.addAll(it)
 //            teamAdapter.notifyDataSetChanged()
 //        }
 
@@ -59,19 +59,18 @@ class MainScreenActivity : AppCompatActivity() {
             override fun onItemClicked(data: Player) {
                 sendDataToDetailPlayer(data)
             }
-
         })
 
-        ApiClient().getPlayers { fetchedPlayers ->
+        ApiClient().getPlayers {
             players.clear()
-            players.addAll(fetchedPlayers)
+            players.addAll(it)
             playerAdapter.notifyDataSetChanged()
         }
 
     }
 
     private fun initComponents() {
-        usernameTxt = findViewById(R.id.showUsernameTxt)
+        fullNameTxt = findViewById(R.id.showFullNameTxt)
         showTeamsBtn = findViewById(R.id.showTeamsBtn)
         showPlayersBtn = findViewById(R.id.showPlayersBtn)
         showTeamsBtnTxt = findViewById(R.id.showTeamsBtnTxt)

@@ -32,7 +32,7 @@
             app:srcCompat="@drawable/esemka_esport_logo_small" />
 
         <TextView
-            android:id="@+id/showUsernameTxt"
+            android:id="@+id/showFullNameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -54,7 +54,7 @@
             android:textSize="11sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/showUsernameTxt" />
+            app:layout_constraintTop_toBottomOf="@+id/showFullNameTxt" />
 
         <TextView
             android:id="@+id/timeTxt"

@@ -12,10 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputEditText
 import com.lks.esemka.esport.R
-import com.lks.esemka.esport.activity.mainscreen.MainScreenContainer
 import com.lks.esemka.esport.network.ApiClient
 import com.lks.esemka.esport.repository.AuthRepository
-import com.lks.esemka.esport.repository.AuthViewModelFactory
+import com.lks.esemka.esport.viewmodel.AuthViewModelFactory
 import com.lks.esemka.esport.viewmodel.AuthViewModel
 
 class SigninActivity : AppCompatActivity() {
@@ -87,7 +86,7 @@ class SigninActivity : AppCompatActivity() {
                 Toast.makeText(this, "Welcome back ${user.fullName}", Toast.LENGTH_SHORT).show()
                 // send data username to team fragment
                 val i = Intent(this, MainScreenActivity::class.java)
-                i.putExtra(USN_KEY, user.username)
+                i.putExtra(USN_KEY, user.fullName)
                 startActivity(i)
                 finish()
             } else {

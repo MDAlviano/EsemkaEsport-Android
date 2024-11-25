@@ -1,5 +1,7 @@
 package com.lks.esemka.esport.adapter
 
+import android.app.Activity
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lks.esemka.esport.R
 import com.lks.esemka.esport.model.Team
+import java.net.HttpURLConnection
+import java.net.URL
 
 class TeamAdapter(private val teamList: List<Team>): RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
 
@@ -29,8 +33,28 @@ class TeamAdapter(private val teamList: List<Team>): RecyclerView.Adapter<TeamAd
     override fun onBindViewHolder(holder: TeamViewHolder, position: Int) {
         val team = teamList[position]
         val teamLogo = "http://10.0.2.2:5000/logos/${team.logo500}"
-        holder.teamImage.setImageURI(Uri.parse(teamLogo))
         holder.teamName.text = team.name
+
+        Thread {
+            try {
+                // Unduh gambar dari URL
+                val url = URL(teamLogo)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.doInput = true
+                connection.connect()
+
+                val inputStream = connection.inputStream
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+
+                // Perbarui UI di thread utama
+                (holder.itemView.context as Activity).runOnUiThread {
+                    holder.teamImage.setImageBitmap(bitmap)
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }.start()
     }
 
 }

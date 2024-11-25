@@ -1,8 +1,8 @@
-package com.lks.esemka.esport.repository
+package com.lks.esemka.esport.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.lks.esemka.esport.viewmodel.AuthViewModel
+import com.lks.esemka.esport.repository.AuthRepository
 
 class AuthViewModelFactory(private val authRepository: AuthRepository): ViewModelProvider.Factory {
 

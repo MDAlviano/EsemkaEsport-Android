@@ -13,10 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputEditText
 import com.lks.esemka.esport.R
-import com.lks.esemka.esport.activity.mainscreen.MainScreenContainer
 import com.lks.esemka.esport.network.ApiClient
 import com.lks.esemka.esport.repository.AuthRepository
-import com.lks.esemka.esport.repository.AuthViewModelFactory
+import com.lks.esemka.esport.viewmodel.AuthViewModelFactory
 import com.lks.esemka.esport.viewmodel.AuthViewModel
 
 class SignupActivity : AppCompatActivity() {
