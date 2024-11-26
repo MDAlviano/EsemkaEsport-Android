@@ -79,10 +79,14 @@ class SignupActivity : AppCompatActivity() {
             Log.d("SignUpInput", "FullName: $fullName, Username: $username, Email: $email, PhoneNumber: $phoneNumber")
 
             if (fullName.isNotBlank() && username.isNotBlank() && email.isNotBlank() && password.isNotBlank()) {
-                Log.d("SignupActivity", "Sign-up initiated with: $fullName, $username, $email, $phoneNumber")
-                authViewModel.signUp(fullName, username, email, phoneNumber, password)
-                startActivity(Intent(this, SigninActivity::class.java))
-                finish()
+                if (username.length > 6 && password.length > 6) {
+                    Log.d("SignupActivity", "Sign-up initiated with: $fullName, $username, $email, $phoneNumber")
+                    authViewModel.signUp(fullName, username, email, phoneNumber, password)
+                    startActivity(Intent(this, SigninActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this, "Minimum length of username & password is 6 character", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 Log.d("SignupActivity", "Sign-up failed: Fields are blank")

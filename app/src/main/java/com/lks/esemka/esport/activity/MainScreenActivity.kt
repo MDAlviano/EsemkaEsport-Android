@@ -2,6 +2,7 @@ package com.lks.esemka.esport.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -62,6 +63,9 @@ class MainScreenActivity : AppCompatActivity() {
         })
 
         ApiClient().getPlayers {
+            players.forEach {
+                Log.d("Debug-API", "Player: ${it.ign}, Team: ${it.team.name}")
+            }
             players.clear()
             players.addAll(it)
             playerAdapter.notifyDataSetChanged()
@@ -113,6 +117,7 @@ class MainScreenActivity : AppCompatActivity() {
     }
 
     private fun sendDataToDetailPlayer(data: Player) {
+        Log.d("Debug-Team", "Team name: ${data.team.name}")
         val intentDetail = Intent(this@MainScreenActivity, DetailPlayerActivity::class.java)
         intentDetail.putExtra(DetailPlayerActivity.DATA_PEMAIN, data)
         startActivity(intentDetail)

@@ -1,5 +1,7 @@
 package com.lks.esemka.esport.activity
 
+import android.app.Activity
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +11,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.lks.esemka.esport.R
 import com.lks.esemka.esport.model.Player
+import java.net.HttpURLConnection
+import java.net.URL
 
 class DetailPlayerActivity : AppCompatActivity() {
 
@@ -30,11 +34,35 @@ class DetailPlayerActivity : AppCompatActivity() {
         onClickAction()
 
         val data  = intent.getParcelableExtra<Player>(DATA_PEMAIN)
-        playerImg.setImageURI(Uri.parse(data?.image))
+
+        Log.d("Debug-Activity2", "Player: ${data?.ign}, Team: ${data?.team?.name}")
+
         tvPlayerName.text = data?.ign
         tvPlayerTeam.text = "(${data?.team?.name})"
         Log.d("Detail-Player ${data?.ign}", "Team of player ${data?.ign} is ${data?.team?.name}")
         tvPlayerRole.text = data?.playerRole?.name
+
+        // set image
+        Thread {
+            try {
+                // Unduh gambar dari URL
+                val imageUrl = "http://10.0.2.2:5000/players/${data?.image}"
+                val url = URL(imageUrl)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.doInput = true
+                connection.connect()
+
+                val inputStream = connection.inputStream
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+
+                runOnUiThread {
+                    playerImg.setImageBitmap(bitmap)
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }.start()
 
     }
 
