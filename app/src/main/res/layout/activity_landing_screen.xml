@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/color1"
     android:fitsSystemWindows="true"
-    tools:context=".activity.LandingScreen">
+    tools:context=".activity.landing.LandingScreen">
 
     <ImageView
         android:id="@+id/imageView2"

@@ -1,4 +1,4 @@
-package com.lks.esemka.esport.activity
+package com.lks.esemka.esport.activity.authentication
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputEditText
 import com.lks.esemka.esport.R
+import com.lks.esemka.esport.activity.main.MainScreenActivity
 import com.lks.esemka.esport.network.ApiClient
 import com.lks.esemka.esport.repository.AuthRepository
 import com.lks.esemka.esport.viewmodel.AuthViewModelFactory

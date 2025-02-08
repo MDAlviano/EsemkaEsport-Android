@@ -11,11 +11,9 @@ import com.lks.esemka.esport.activity.mainscreen.pemain.PemainFragment
 import com.lks.esemka.esport.activity.mainscreen.tim.TeamFragment
 
 class MainScreenContainer : AppCompatActivity() {
-
     companion object {
         const val USN_KEY = "USERNAME"
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,7 +43,5 @@ class MainScreenContainer : AppCompatActivity() {
                     .commit()
             }
         }
-
-
     }
 }

@@ -1,5 +1,7 @@
 package com.lks.esemka.esport.network
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.lks.esemka.esport.model.AuthModel
 import com.lks.esemka.esport.model.Player
@@ -75,7 +77,10 @@ class ApiClient {
                 parseUserFromJson(JSONObject(jsonResponse))
             } else {
                 val errorStream = connection.errorStream?.bufferedReader()?.use { it.readText() }
-                Log.d("SIGN-UP", "Server returned response code: ${connection.responseCode}, error: $errorStream")
+                Log.d(
+                    "SIGN-UP",
+                    "Server returned response code: ${connection.responseCode}, error: $errorStream"
+                )
                 null
             }
         } catch (e: Exception) {
@@ -95,19 +100,19 @@ class ApiClient {
             connection.setRequestProperty("Content-Type", "application/json; utf-8")
             connection.connectTimeout = 5000
             connection.readTimeout = 5000
-
             try {
                 if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                     val responseText = connection.inputStream.bufferedReader().use { it.readText() }
                     val teams = parseTeamFromJson(responseText)
                     callback(teams)
+                    Log.i("GET-Teams", "Success to fetch data, code: ${connection.responseCode}")
+                    Log.i("GET-Teams", "Success to fetch data, data: $teams")
                 } else {
                     Log.e("GET-Teams", "Failed to fetch data, code: ${connection.responseCode}")
                 }
             } catch (e: Exception) {
                 Log.e("GET-Teams", "Message: ${e.message.toString()}")
-            }
-            finally {
+            } finally {
                 connection.disconnect()
             }
         }
@@ -128,11 +133,18 @@ class ApiClient {
                     val players = parsePlayerFromJson(responseText)
                     callback(players)
                     Log.i("GET-Teams", "Success to fetch data, code: ${connection.responseCode}")
+                    Log.i("GET-Teams", "Success to fetch data, data: $players")
                 } else {
-                    Log.e("GET-Players", "Failed to fetch players, code: ${connection.responseCode}")
+                    Log.e(
+                        "GET-Players",
+                        "Failed to fetch players, code: ${connection.responseCode}"
+                    )
                 }
             } catch (e: Exception) {
-                Log.e("GET-Players", "Message: ${e.message.toString()}, code: ${connection.responseCode}")
+                Log.e(
+                    "GET-Players",
+                    "Message: ${e.message.toString()}, code: ${connection.responseCode}"
+                )
             } finally {
                 connection.disconnect()
             }

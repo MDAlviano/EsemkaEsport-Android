@@ -17,10 +17,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.DetailPlayerActivity"
+            android:name=".activity.detail.DetailPlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainScreenActivity"
+            android:name=".activity.main.MainScreenActivity"
             android:exported="false" />
         <activity
             android:name=".activity.mainscreen.TopBar"
@@ -29,13 +29,13 @@
             android:name=".activity.mainscreen.MainScreenContainer"
             android:exported="false" />
         <activity
-            android:name=".activity.SignupActivity"
+            android:name=".activity.authentication.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.SigninActivity"
+            android:name=".activity.authentication.SigninActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LandingScreen"
+            android:name=".activity.landing.LandingScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,9 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.MainActivity"
-            android:exported="false" />
     </application>
 
 </manifest>

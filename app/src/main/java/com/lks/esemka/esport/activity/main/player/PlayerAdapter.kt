@@ -1,8 +1,7 @@
-package com.lks.esemka.esport.adapter
+package com.lks.esemka.esport.activity.main.player
 
 import android.app.Activity
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

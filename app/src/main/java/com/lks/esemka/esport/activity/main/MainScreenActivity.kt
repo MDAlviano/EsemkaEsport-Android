@@ -1,4 +1,4 @@
-package com.lks.esemka.esport.activity
+package com.lks.esemka.esport.activity.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,13 +7,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lks.esemka.esport.R
-import com.lks.esemka.esport.adapter.PlayerAdapter
-import com.lks.esemka.esport.adapter.TeamAdapter
+import com.lks.esemka.esport.activity.detail.DetailPlayerActivity
+import com.lks.esemka.esport.activity.authentication.SigninActivity
+import com.lks.esemka.esport.activity.main.player.PlayerAdapter
+import com.lks.esemka.esport.activity.main.team.TeamAdapter
 import com.lks.esemka.esport.model.Player
 import com.lks.esemka.esport.model.Team
 import com.lks.esemka.esport.network.ApiClient
@@ -38,38 +38,18 @@ class MainScreenActivity : AppCompatActivity() {
         val fullName = intent.getStringExtra(SigninActivity.USN_KEY) ?: "Guest"
         fullNameTxt.text = "Halo, $fullName 👋"
 
-        // set default recycler view for teams
-//        val teams = mutableListOf<Team>()
-//        val teamAdapter = TeamAdapter(teams)
-//        recyclerView.layoutManager = GridLayoutManager(this, 2)
-//        recyclerView.adapter = teamAdapter
-//
-//        ApiClient().getTeams {
-//            teams.clear()
-//            teams.addAll(it)
-//            teamAdapter.notifyDataSetChanged()
-//        }
-
-        // set recycler view for players
-        val players = mutableListOf<Player>()
-        val playerAdapter = PlayerAdapter(players)
+//         set default recycler view for teams
+        val teams = mutableListOf<Team>()
+        val teamAdapter = TeamAdapter(teams)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
-        recyclerView.adapter = playerAdapter
+        recyclerView.adapter = teamAdapter
 
-        playerAdapter.setOnItemClickCallback(object : PlayerAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: Player) {
-                sendDataToDetailPlayer(data)
-            }
-        })
-
-        ApiClient().getPlayers {
-            players.forEach {
-                Log.d("Debug-API", "Player: ${it.ign}, Team: ${it.team.name}")
-            }
-            players.clear()
-            players.addAll(it)
-            playerAdapter.notifyDataSetChanged()
+        ApiClient().getTeams {
+            teams.clear()
+            teams.addAll(it)
+            teamAdapter.notifyDataSetChanged()
         }
+
 
     }
 
@@ -91,17 +71,27 @@ class MainScreenActivity : AppCompatActivity() {
             showTeamsBtn.setBackgroundColor(resources.getColor(R.color.white))
             showTeamsBtnTxt.setTextColor(resources.getColor(R.color.color1))
 
-            // set recycler view for teams
-//            val teams = mutableListOf<Team>()
-//            val teamAdapter = TeamAdapter(teams)
-//            recyclerView.layoutManager = GridLayoutManager(this, 2)
-//            recyclerView.adapter = teamAdapter
-//
-//            ApiClient().getTeams { fetchedTeams ->
-//                teams.clear()
-//                teams.addAll(fetchedTeams)
-//                teamAdapter.notifyDataSetChanged()
-//            }
+            // set recycler view for players
+            val players = mutableListOf<Player>()
+            val playerAdapter = PlayerAdapter(players)
+            recyclerView.layoutManager = GridLayoutManager(this, 2)
+            recyclerView.adapter = playerAdapter
+
+            playerAdapter.setOnItemClickCallback(object : PlayerAdapter.OnItemClickCallback{
+                override fun onItemClicked(data: Player) {
+                    sendDataToDetailPlayer(data)
+                }
+            })
+
+            ApiClient().getPlayers {
+                players.forEach {
+                    Log.d("Debug-API", "Player: ${it.ign}, Team: ${it.team.name}")
+                }
+                players.clear()
+                players.addAll(it)
+                playerAdapter.notifyDataSetChanged()
+            }
+
         }
 
         showTeamsBtn.setOnClickListener {
@@ -111,6 +101,16 @@ class MainScreenActivity : AppCompatActivity() {
             showPlayersBtn.setBackgroundColor(resources.getColor(R.color.white))
             showPlayersBtnTxt.setTextColor(resources.getColor(R.color.color1))
 
+            val teams = mutableListOf<Team>()
+            val teamAdapter = TeamAdapter(teams)
+            recyclerView.layoutManager = GridLayoutManager(this, 2)
+            recyclerView.adapter = teamAdapter
+
+            ApiClient().getTeams {
+                teams.clear()
+                teams.addAll(it)
+                teamAdapter.notifyDataSetChanged()
+            }
 
         }
 

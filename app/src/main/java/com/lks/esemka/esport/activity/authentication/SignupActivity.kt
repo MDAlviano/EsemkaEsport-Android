@@ -1,4 +1,4 @@
-package com.lks.esemka.esport.activity
+package com.lks.esemka.esport.activity.authentication
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,8 +1,6 @@
-package com.lks.esemka.esport.activity
+package com.lks.esemka.esport.activity.detail
 
-import android.app.Activity
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
